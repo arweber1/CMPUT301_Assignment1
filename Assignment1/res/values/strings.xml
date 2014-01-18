@@ -7,4 +7,7 @@
 	<string name="add_counter">+ Add new counter</string>
 	<string name="manage_counters">Manage counters</string>
 	<string name="enter_counter_name">Enter a name for this counter</string>
+	<string name="create_new_counter">Create</string>
+	<string name="cancel_button">Cancel</string>
+	<color name="test">#99FFFF</color>
 </resources>
