@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 public class CreateCounter extends Activity {
-
+	
 	
 	
     
@@ -20,9 +20,8 @@ public class CreateCounter extends Activity {
 	}
 	
 	
-	
+	//adds counter to ListView
 	public void create(View v){
-		
 		
 	}
 	

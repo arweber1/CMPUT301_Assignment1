@@ -26,6 +26,10 @@
         <activity
 			android:name=".CreateCounter">
 		</activity>
+		
+        <activity
+			android:name=".Counter">
+		</activity>
     </application>
 
 </manifest>

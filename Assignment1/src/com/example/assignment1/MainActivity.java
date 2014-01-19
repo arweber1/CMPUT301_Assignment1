@@ -1,40 +1,31 @@
 package com.example.assignment1;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
-
+	private ArrayList<String> itemArray;
+    private ArrayAdapter<String> itemAdapter;
+    private ListView lvItem;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        
-        
-        
-        
-        
-        
-        
-        final Button btncreate = (Button) findViewById(R.id.addCounter);
-        btncreate.setOnClickListener(new View.OnClickListener(){
-        	
-        	public void onClick(View view) {
-        		Intent create = new Intent(MainActivity.this, CreateCounter.class);
-        	  	  startActivity(create); // brings up the second activity
-        	}
-
-			
-    });
-        
-    }
-    
+        //itemArray.add("test");
+        itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,itemArray);
+        //lvItem = new ListView(this);
+        lvItem.setAdapter(itemAdapter);
+        //itemAdapter.notifyDataSetChanged();
+    }	
+         
   	  // first parameter is the context, second is the class of the activity to launch
   	  
   	
@@ -46,4 +37,10 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    
+    //enters counter creation
+    public void addCounter(View v) {
+		Intent create = new Intent(MainActivity.this, CreateCounter.class);
+	  	  startActivity(create); // brings up the second activity
+	}
 }

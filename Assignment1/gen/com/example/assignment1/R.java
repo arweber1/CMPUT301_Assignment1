@@ -34,7 +34,7 @@ public final class R {
         public static final int cancel_button=0x7f090007;
         public static final int create_button=0x7f090006;
         public static final int editText1=0x7f090005;
-        public static final int listView1=0x7f090003;
+        public static final int list=0x7f090003;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
