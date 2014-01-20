@@ -32,8 +32,8 @@ public final class R {
         public static final int addCounter=0x7f090001;
         public static final int button2=0x7f090002;
         public static final int cancel_button=0x7f090007;
+        public static final int counter_name=0x7f090005;
         public static final int create_button=0x7f090006;
-        public static final int editText1=0x7f090005;
         public static final int list=0x7f090003;
         public static final int textView1=0x7f090000;
     }

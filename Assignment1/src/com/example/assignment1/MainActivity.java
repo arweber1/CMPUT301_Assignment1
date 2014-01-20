@@ -12,8 +12,7 @@ import android.widget.ListView;
 
 public class MainActivity extends Activity {
 	protected ArrayList<String> counterArray = new ArrayList<String>();;
-    private ArrayAdapter<String> itemAdapter;
-    private ListView lvItem;
+    private String counterName;
    
     protected ListView countersListView;
 
@@ -32,31 +31,20 @@ public class MainActivity extends Activity {
         
         // Initialize the UI components
         countersListView = (ListView) findViewById(R.id.list);
-        //counterArray = new ArrayList<String>();
-        //counterArray.add("2");
-        // Initialize the songs array
-        //counterArray = new String[10];
-
-         //Fill the songs array by using a for loop
-       
-       
-        
-        
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, counterArray);
-
-        // By using setAdapter method, you plugged the ListView with adapter
-        //countersListView.setAdapter(arrayAdapter);
+        countersListView.setAdapter(arrayAdapter);
+      
         
         
     }	
     
-  	  // first parameter is the context, second is the class of the activity to launch
+  	
   	  
   	@Override
     public void onResume() {
   		super.onResume();
   		
-  		countersListView.setAdapter(arrayAdapter);
+  		
   		
   		
   	}
@@ -74,6 +62,22 @@ public class MainActivity extends Activity {
     //enters counter creation
     public void addCounter(View v) {
 		Intent create = new Intent(MainActivity.this, CreateCounter.class);
-	  	  startActivity(create); // brings up the second activity
+		create.putExtra("name", counterName);
+	  	startActivityForResult(create, 0);
 	}
+    
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent create) {
+    	if (resultCode == RESULT_OK){
+    		
+	    	super.onActivityResult(requestCode, resultCode, create);
+	    	String name = create.getStringExtra("counter name");
+	    	if (name != null) {
+	    		counterArray.add(name);
+	    	}
+    	}
+    }
+    
+    
 }

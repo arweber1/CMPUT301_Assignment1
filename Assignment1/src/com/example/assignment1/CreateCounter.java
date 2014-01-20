@@ -1,11 +1,13 @@
 package com.example.assignment1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
-public class CreateCounter extends MainActivity {
-	
+public class CreateCounter extends Activity {
+	String name;
 	
 	
     
@@ -13,12 +15,30 @@ public class CreateCounter extends MainActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_counter);
 		
+		
 	}
 	
 	
 	//adds counter to ListView
 	public void create(View v){
-		counterArray.add("2");
+		
+		EditText editName = (EditText) findViewById(R.id.counter_name);
+		if (editName != null){
+			
+			Intent create = getIntent();
+			
+			
+			name = create.getStringExtra("counterName");
+			name = editName.getText().toString();
+			
+			create.putExtra("counter name", name);
+			setResult(RESULT_OK, create);
+			
+			
+			finish();
+		}
+		
+		
 	}
 	
 	
