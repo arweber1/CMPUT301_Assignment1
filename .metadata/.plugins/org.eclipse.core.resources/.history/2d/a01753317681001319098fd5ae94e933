@@ -1,0 +1,35 @@
+package com.example.assignment1;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+public class CreateCounter extends MainActivity {
+	
+	
+	
+    
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.create_counter);
+		
+		
+	}
+	
+	
+	//adds counter to ListView
+	public void create(View v){
+		EditText editName = (EditText) findViewById(R.id.counter_name);
+		String name = editName.getText().toString();
+		
+		if (name != null){
+			finish();
+		}
+	}
+	
+	
+	
+	public void cancel(View v){
+		finish();
+	}
+}

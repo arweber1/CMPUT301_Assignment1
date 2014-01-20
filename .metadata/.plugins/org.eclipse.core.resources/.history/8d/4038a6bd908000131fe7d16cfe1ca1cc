@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">arweber-notes</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="add_counter">+ Add new counter</string>
+	<string name="manage_counters">Manage counters</string>
+	<string name="enter_counter_name">Enter a name for this counter</string>
+	<string name="create_counter">Create</string>
+</resources>

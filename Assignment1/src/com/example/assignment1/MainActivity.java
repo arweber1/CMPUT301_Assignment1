@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 public class MainActivity extends Activity {
 	protected ArrayList<String> counterArray = new ArrayList<String>();
-    private String counterName;
+   // private String counterName;
    
     protected ListView countersListView;
 
@@ -30,12 +30,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         // Initialize the UI components
-        countersListView = (ListView) findViewById(R.id.list);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, counterArray);
-        countersListView.setAdapter(arrayAdapter);
+        //countersListView = (ListView) findViewById(R.id.list);
+        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, counterArray);
+        //countersListView.setAdapter(arrayAdapter);
       
-        
-        
+        ListView listview = (ListView) findViewById(R.id.list);
+        listview.setAdapter(new CustomAdapter(this, counterArray));
         
     }	
     
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
     public void onResume() {
   		super.onResume();
   		
-  		counterName = null;
+  		
   		
   		
   	}
@@ -68,6 +68,7 @@ public class MainActivity extends Activity {
 	}
     
     
+    //Add counter to ListView after returning from CreateCounter activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent create) {
     	if (resultCode == RESULT_OK){

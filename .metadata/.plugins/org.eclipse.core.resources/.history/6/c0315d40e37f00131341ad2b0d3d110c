@@ -1,7 +1,0 @@
-package com.example.assignment1;
-
-import android.app.Activity;
-
-public class CreateCounter extends Activity {
-
-}

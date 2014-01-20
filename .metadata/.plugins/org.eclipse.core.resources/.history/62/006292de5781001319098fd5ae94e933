@@ -1,0 +1,22 @@
+
+public class Counter {
+
+	private String counterName;
+	private String count;
+	
+	
+	
+	public String getName(){
+		return counterName;
+	}
+	
+	public String getCount(){
+		return count;
+	}
+	
+	public void editName(String newName){
+		this.counterName = newName;
+	}
+	
+	 
+}
