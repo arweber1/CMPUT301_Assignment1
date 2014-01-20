@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 public class CreateCounter extends Activity {
 	String name;
-	
+	EditText editName = null;
 	
     
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,20 +22,17 @@ public class CreateCounter extends Activity {
 	//adds counter to ListView
 	public void create(View v){
 		
+		Intent create = getIntent();
 		EditText editName = (EditText) findViewById(R.id.counter_name);
-		if (editName != null){
-			
-			Intent create = getIntent();
-			
-			
-			name = create.getStringExtra("counterName");
-			name = editName.getText().toString();
-			
+		
+		//name = create.getStringExtra("counterName");
+		name = editName.getText().toString();
+		
+		if (name.length() != 0){
+						
 			create.putExtra("counter name", name);
 			setResult(RESULT_OK, create);
-			
-			
-			finish();
+		    finish();
 		}
 		
 		

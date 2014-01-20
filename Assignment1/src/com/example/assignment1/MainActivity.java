@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
-	protected ArrayList<String> counterArray = new ArrayList<String>();;
+	protected ArrayList<String> counterArray = new ArrayList<String>();
     private String counterName;
    
     protected ListView countersListView;
@@ -36,6 +36,7 @@ public class MainActivity extends Activity {
       
         
         
+        
     }	
     
   	
@@ -44,7 +45,7 @@ public class MainActivity extends Activity {
     public void onResume() {
   		super.onResume();
   		
-  		
+  		counterName = null;
   		
   		
   	}
@@ -62,7 +63,7 @@ public class MainActivity extends Activity {
     //enters counter creation
     public void addCounter(View v) {
 		Intent create = new Intent(MainActivity.this, CreateCounter.class);
-		create.putExtra("name", counterName);
+		//create.putExtra("name", counterName);
 	  	startActivityForResult(create, 0);
 	}
     
@@ -73,9 +74,9 @@ public class MainActivity extends Activity {
     		
 	    	super.onActivityResult(requestCode, resultCode, create);
 	    	String name = create.getStringExtra("counter name");
-	    	if (name != null) {
-	    		counterArray.add(name);
-	    	}
+	    	
+	    	counterArray.add(name);
+	   
     	}
     }
     
