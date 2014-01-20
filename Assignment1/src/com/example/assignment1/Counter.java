@@ -9,21 +9,22 @@ package com.example.assignment1;
 public class Counter {
 
 	private static String counterName;
-	private static String count;
+	private static int count;
 	
 	
-	
-	public static String getName(){
-		return counterName;
-	}
-	
-	public static String getCount(){
+	public static int getCount(){
 		return count;
 	}
 	
-	public void editName(String newName){
-		this.counterName = newName;
+
+	public static String getCounterName() {
+		return counterName;
 	}
+
+	public static void setCounterName(String counterName) {
+		Counter.counterName = counterName;
+	}
+
 	
 	 
 }
