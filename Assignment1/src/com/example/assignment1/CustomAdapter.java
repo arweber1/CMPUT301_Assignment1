@@ -50,9 +50,11 @@ public class CustomAdapter extends BaseAdapter {
         if (vi == null)
             vi = inflater.inflate(R.layout.counter_list_row, null);
         TextView text = (TextView) vi.findViewById(R.id.counter_name);
-        text.setText(Counter.getCounterName());
+        //text.setText(Counter.getCounterName());
+        text.setText(String.valueOf(data.get(position).getCounterName()));
         text = (TextView) vi.findViewById(R.id.count);
-        text.setText(Integer.toString(Counter.getCount()));
+        //text.setText(Integer.toString(Counter.getCount()));
+        text.setText(String.valueOf(data.get(position).getCount()));
         return vi;
 	}
 

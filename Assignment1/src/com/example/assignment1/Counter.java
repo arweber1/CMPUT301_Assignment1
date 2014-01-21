@@ -8,24 +8,27 @@ package com.example.assignment1;
 
 public class Counter {
 
-	private static String counterName;
-	private static int count;
+	private String counterName = null;
+	private int count = 0;
 	
-	
-	public static int getCount(){
+	public Counter(String name){
+		counterName = name;
+		
+	}
+	public int getCount(){
 		return count;
 	}
 	
-	public static void increment(){
+	public void increment(){
 		count ++;
 	}
 	
-	public static String getCounterName() {
+	public String getCounterName() {
 		return counterName;
 	}
 
-	public static void setCounterName(String counterName) {
-		Counter.counterName = counterName;
+	public void setCounterName(String counterName) {
+		this.counterName = counterName;
 	}
 
 	

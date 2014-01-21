@@ -27,6 +27,9 @@ public class MainActivity extends Activity {
 	//Anyway ArrayAdapter supports only TextView
 	protected ArrayAdapter<String> arrayAdapter;
 	protected ListView listview;
+	
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +43,13 @@ public class MainActivity extends Activity {
         listview = (ListView) findViewById(R.id.list);
         listview.setAdapter(new CustomAdapter(this, counterArray));
         
-        
+       
         listview.setOnItemClickListener(new OnItemClickListener() {
-        	
+       
         	 @Override
-        		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         		// TODO Auto-generated method stub
-        		 Counter.increment();
+        		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
         		}
         });
@@ -92,11 +95,10 @@ public class MainActivity extends Activity {
     	if (resultCode == RESULT_OK){
     		
 	    	super.onActivityResult(requestCode, resultCode, create);
-	    	String name = create.getStringExtra("counter name");
 	    	
-	    	Counter.setCounterName(name);
-	    	counterArray.add(new Counter());
-	   
+	    	String name = create.getStringExtra("counter name");
+	    	counterArray.add(new Counter(name));
+	    	
     	}
     }
     
