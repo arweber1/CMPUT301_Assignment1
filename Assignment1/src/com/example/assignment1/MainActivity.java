@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
-	protected ArrayList<String> counterArray = new ArrayList<String>();
+	protected ArrayList<Counter> counterArray = new ArrayList<Counter>();
    // private String counterName;
    
     protected ListView countersListView;
@@ -23,7 +26,7 @@ public class MainActivity extends Activity {
 	// is the way of type safe, means you only can pass Strings to this array
 	//Anyway ArrayAdapter supports only TextView
 	protected ArrayAdapter<String> arrayAdapter;
-	
+	protected ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +37,32 @@ public class MainActivity extends Activity {
         //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, counterArray);
         //countersListView.setAdapter(arrayAdapter);
       
-        ListView listview = (ListView) findViewById(R.id.list);
+        listview = (ListView) findViewById(R.id.list);
         listview.setAdapter(new CustomAdapter(this, counterArray));
         
+        
+        listview.setOnItemClickListener(new OnItemClickListener() {
+        	
+        	 @Override
+        		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        		// TODO Auto-generated method stub
+        		 Counter.increment();
+        		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+        		}
+        });
+        
+       
     }	
     
   	
-  	  
+   
+
+		
+		
   	@Override
     public void onResume() {
   		super.onResume();
-  		
+  	
   		
   		
   		
@@ -76,7 +94,8 @@ public class MainActivity extends Activity {
 	    	super.onActivityResult(requestCode, resultCode, create);
 	    	String name = create.getStringExtra("counter name");
 	    	
-	    	counterArray.add(name);
+	    	Counter.setCounterName(name);
+	    	counterArray.add(new Counter());
 	   
     	}
     }

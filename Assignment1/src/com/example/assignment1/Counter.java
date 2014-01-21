@@ -16,7 +16,10 @@ public class Counter {
 		return count;
 	}
 	
-
+	public static void increment(){
+		count ++;
+	}
+	
 	public static String getCounterName() {
 		return counterName;
 	}

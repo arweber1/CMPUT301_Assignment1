@@ -14,10 +14,10 @@ public class CustomAdapter extends BaseAdapter {
 	
 	Context context;
     //String[] data;
-	ArrayList<String> data = new ArrayList<String>();
+	ArrayList<Counter> data = new ArrayList<Counter>();
     private static LayoutInflater inflater = null;
 
-    public CustomAdapter(Context context, ArrayList<String> data) {
+    public CustomAdapter(Context context, ArrayList<Counter> data) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.data = data;
@@ -49,8 +49,10 @@ public class CustomAdapter extends BaseAdapter {
 		View vi = convertView;
         if (vi == null)
             vi = inflater.inflate(R.layout.counter_list_row, null);
-        TextView text = (TextView) vi.findViewById(R.id.textView1);
-        text.setText(data.get(position));
+        TextView text = (TextView) vi.findViewById(R.id.counter_name);
+        text.setText(Counter.getCounterName());
+        text = (TextView) vi.findViewById(R.id.count);
+        text.setText(Integer.toString(Counter.getCount()));
         return vi;
 	}
 
