@@ -1,8 +1,16 @@
 package com.example.assignment1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,8 +21,12 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 public class MainActivity extends Activity {
-	protected ArrayList<Counter> counterArray = new ArrayList<Counter>();
+	private ArrayList<Counter> counterArray = new ArrayList<Counter>();
    // private String counterName;
    
     protected ListView countersListView;
@@ -27,7 +39,7 @@ public class MainActivity extends Activity {
 	//Anyway ArrayAdapter supports only TextView
 	protected ArrayAdapter<String> arrayAdapter;
 	protected ListView listview;
-	
+	private static final String FILENAME = "counters.sav";
 	
 	
     @Override
@@ -39,16 +51,57 @@ public class MainActivity extends Activity {
         //countersListView = (ListView) findViewById(R.id.list);
         //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, counterArray);
         //countersListView.setAdapter(arrayAdapter);
-      
+        //counterArray.add(new Counter("test"));
+        //counterArray = (ArrayList<Counter>)loadClassFile(new File(FILENAME));
         listview = (ListView) findViewById(R.id.list);
         listview.setAdapter(new CustomAdapter(this, counterArray));
+        //counterArray.add(new Counter("test"));
+        //counterArray.add(new Counter("test2"));
         
-       
+        //saveInFile(new Counter("test"));
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+                        
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+                        String line = reader.readLine();
+                        //System.out.println(line);
+                       // String line = reader.readLine();
+                       // line = reader.readLine();
+                        Gson gson = new Gson();
+                        
+                       
+                        JsonParser parser = new JsonParser();
+                        JsonArray array = parser.parse(line).getAsJsonArray();
+
+                        //Counter myTypes = gson.fromJson(new FileReader(reader), Counter.class);
+                        //System.out.println(gson.toJson(myTypes));
+                        //try{
+                        		Counter counter;
+                        		
+                        		for (int i = 0; i < array.size(); i++){
+                        			counter = gson.fromJson(array.get(i), Counter.class);
+                        			counterArray.add(counter);
+                        		}
+                                
+                                //System.out.println(counter);
+                                //counterArray.add(counter);
+                                
+                       // System.out.println(object.fromJson(reader, Counter.class) + "hhhhhhhhhhhhhhhhh");
+                        //}catch(EOFException e){
+                
+        
+                  fis.close();
+                } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+        
         listview.setOnItemClickListener(new OnItemClickListener() {
        
         	 @Override
         		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         		// TODO Auto-generated method stub
+        		 //saveInFile()
         		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
         		}
@@ -85,6 +138,7 @@ public class MainActivity extends Activity {
     public void addCounter(View v) {
 		Intent create = new Intent(MainActivity.this, CreateCounter.class);
 		//create.putExtra("name", counterName);
+		
 	  	startActivityForResult(create, 0);
 	}
     
@@ -97,10 +151,68 @@ public class MainActivity extends Activity {
 	    	super.onActivityResult(requestCode, resultCode, create);
 	    	
 	    	String name = create.getStringExtra("counter name");
-	    	counterArray.add(new Counter(name));
-	    	
+	    	Counter counter = new Counter(name);
+	    	counterArray.add(counter);
+	    	saveInFile(counter);
     	}
     }
     
     
+    //Enter management activity where the user can edit their counters
+    public void manageCounters(View v){
+    	
+    	if (counterArray.size() != 0){
+	    	Intent manage = new Intent(MainActivity.this, ManageCounters.class);
+			manage.putExtra("list of counters", counterArray);
+		  	startActivity(manage);
+    	}
+    }
+    
+    public Object loadClassFile(File f)
+    	{
+    	ArrayList<String> tweets = new ArrayList<String>();
+        
+        
+        try {
+                FileInputStream fis = openFileInput(FILENAME);
+                
+                BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+                String line = in.readLine();
+                while (line != null) {
+                        tweets.add(line);
+                        line = in.readLine();
+                }
+
+        } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+        return tweets.toArray(new String[tweets.size()]);
+   	}
+    
+    private void saveInFile(Counter new_counter) {
+        try {
+        	Gson g_object = new Gson();
+            String to_be_stored = g_object.toJson(counterArray);
+            FileOutputStream fos = openFileOutput(FILENAME,
+                            Context.MODE_PRIVATE);
+            
+            /*fos.write(new String(date.toString() + " | " + text)
+                            .getBytes());*/
+            fos.write(to_be_stored.getBytes());
+            
+            fos.close();
+        	
+        } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
 }
+  }
+

@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/addCounter"
         android:layout_toRightOf="@+id/addCounter"
+        android:onClick="manageCounters"
         android:text="@string/manage_counters" />
 
     <ListView

@@ -6,10 +6,13 @@
 
 package com.example.assignment1;
 
-public class Counter {
+import java.io.Serializable;
+
+public class Counter implements Serializable {
 
 	private String counterName = null;
 	private int count = 0;
+	private static final long serialVersionUID = 4654897;
 	
 	public Counter(String name){
 		counterName = name;
@@ -31,6 +34,10 @@ public class Counter {
 		this.counterName = counterName;
 	}
 
+	public void resetCount(){
+		this.count = 0;
+	}
+	
 	
 	 
 }
