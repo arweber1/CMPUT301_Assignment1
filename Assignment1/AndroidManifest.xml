@@ -31,6 +31,9 @@
 			android:name=".ManageCounters">
 		</activity>
 		
+        <activity
+			android:name=".EditCounter">
+		</activity>
        
     </application>
 

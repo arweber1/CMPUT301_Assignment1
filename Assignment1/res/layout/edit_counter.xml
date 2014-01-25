@@ -4,39 +4,52 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/edit_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="34dp"
-        android:text="TextView" />
+        android:text="@string/edit_name" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/edit_textView"
+        android:layout_alignBottom="@+id/edit_textView"
         android:layout_alignParentRight="true"
+        android:inputType="textCapSentences"
         android:ems="10" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/reset_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/editName"
         android:layout_marginTop="28dp"
-        android:text="Button" />
+        android:onClick="resetCount"
+        android:text="@string/reset_count" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Button" />
+        android:onClick="saveChanges"
+        android:text="@string/save_button" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reset_count"
+        android:layout_marginTop="15dp"
+        android:onClick="deleteCounter"
+        android:text="@string/delete_button" />
 
 </RelativeLayout>

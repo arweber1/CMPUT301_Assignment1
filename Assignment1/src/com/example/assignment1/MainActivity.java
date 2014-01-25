@@ -59,42 +59,7 @@ public class MainActivity extends Activity {
         //counterArray.add(new Counter("test2"));
         
         //saveInFile(new Counter("test"));
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-                        
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                        String line = reader.readLine();
-                        //System.out.println(line);
-                       // String line = reader.readLine();
-                       // line = reader.readLine();
-                        Gson gson = new Gson();
-                        
-                       
-                        JsonParser parser = new JsonParser();
-                        JsonArray array = parser.parse(line).getAsJsonArray();
-
-                        //Counter myTypes = gson.fromJson(new FileReader(reader), Counter.class);
-                        //System.out.println(gson.toJson(myTypes));
-                        //try{
-                        		Counter counter;
-                        		
-                        		for (int i = 0; i < array.size(); i++){
-                        			counter = gson.fromJson(array.get(i), Counter.class);
-                        			counterArray.add(counter);
-                        		}
-                                
-                                //System.out.println(counter);
-                                //counterArray.add(counter);
-                                
-                       // System.out.println(object.fromJson(reader, Counter.class) + "hhhhhhhhhhhhhhhhh");
-                        //}catch(EOFException e){
-                
-        
-                  fis.close();
-                } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                }
+        loadClassFile(FILENAME,counterArray);
         
         listview.setOnItemClickListener(new OnItemClickListener() {
        
@@ -104,6 +69,7 @@ public class MainActivity extends Activity {
         		 //saveInFile()
         		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+        		 saveInFile(counterArray);
         		}
         });
         
@@ -118,7 +84,7 @@ public class MainActivity extends Activity {
   	@Override
     public void onResume() {
   		super.onResume();
-  	
+  		((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
   		
   		
   		
@@ -153,7 +119,7 @@ public class MainActivity extends Activity {
 	    	String name = create.getStringExtra("counter name");
 	    	Counter counter = new Counter(name);
 	    	counterArray.add(counter);
-	    	saveInFile(counter);
+	    	saveInFile(counterArray);
     	}
     }
     
@@ -168,35 +134,50 @@ public class MainActivity extends Activity {
     	}
     }
     
-    public Object loadClassFile(File f)
+    public void loadClassFile(String file, ArrayList<Counter> array2)
     	{
-    	ArrayList<String> tweets = new ArrayList<String>();
-        
-        
-        try {
-                FileInputStream fis = openFileInput(FILENAME);
-                
-                BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-                String line = in.readLine();
-                while (line != null) {
-                        tweets.add(line);
-                        line = in.readLine();
-                }
+    	try {
+            FileInputStream fis = openFileInput(file);
+                        
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+                        String line = reader.readLine();
+                        //System.out.println(line);
+                       // String line = reader.readLine();
+                       // line = reader.readLine();
+                        Gson gson = new Gson();
+                        
+                       
+                        JsonParser parser = new JsonParser();
+                        JsonArray array = parser.parse(line).getAsJsonArray();
 
-        } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-        } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-        }
-        return tweets.toArray(new String[tweets.size()]);
+                        //Counter myTypes = gson.fromJson(new FileReader(reader), Counter.class);
+                        //System.out.println(gson.toJson(myTypes));
+                        //try{
+                        		Counter counter;
+                        		
+                        		for (int i = 0; i < array.size(); i++){
+                        			counter = gson.fromJson(array.get(i), Counter.class);
+                        			array2.add(counter);
+                        		}
+                                
+                                //System.out.println(counter);
+                                //counterArray.add(counter);
+                                
+                       // System.out.println(object.fromJson(reader, Counter.class) + "hhhhhhhhhhhhhhhhh");
+                        //}catch(EOFException e){
+                
+        
+                  fis.close();
+                } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
    	}
     
-    private void saveInFile(Counter new_counter) {
+    protected void saveInFile(ArrayList<Counter> counters) {
         try {
         	Gson g_object = new Gson();
-            String to_be_stored = g_object.toJson(counterArray);
+            String to_be_stored = g_object.toJson(counters);
             FileOutputStream fos = openFileOutput(FILENAME,
                             Context.MODE_PRIVATE);
             

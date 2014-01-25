@@ -28,7 +28,7 @@ public class CreateCounter extends Activity {
 		//name = create.getStringExtra("counterName");
 		name = editName.getText().toString();
 		
-		if (name.length() != 0){
+		if (name.trim().length() != 0){
 						
 			create.putExtra("counter name", name);
 			setResult(RESULT_OK, create);

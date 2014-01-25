@@ -6,4 +6,7 @@
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.provider.ContactsContract.CommonDataKinds.Event"/>
+<fullyQualifiedTypeName name="android.util.JsonReader"/>
+<fullyQualifiedTypeName name="android.renderscript.Type"/>
 </qualifiedTypeNameHistroy>

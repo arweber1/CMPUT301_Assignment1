@@ -28,18 +28,20 @@ public final class R {
     }
     public static final class id {
         public static final int CreateCounter_container=0x7f090006;
-        public static final int action_settings=0x7f09000d;
+        public static final int action_settings=0x7f09000f;
         public static final int addCounter=0x7f090001;
-        public static final int button1=0x7f09000a;
-        public static final int button2=0x7f09000b;
         public static final int cancel_button=0x7f090008;
-        public static final int count=0x7f090005;
-        public static final int counter_name=0x7f090004;
+        public static final int count=0x7f090004;
+        public static final int counter_name=0x7f090005;
         public static final int create_button=0x7f090007;
-        public static final int editText1=0x7f090009;
+        public static final int delete_button=0x7f09000d;
+        public static final int editName=0x7f09000a;
+        public static final int edit_textView=0x7f090009;
         public static final int list=0x7f090003;
         public static final int manageCounters=0x7f090002;
-        public static final int manage_list=0x7f09000c;
+        public static final int manage_list=0x7f09000e;
+        public static final int reset_count=0x7f09000b;
+        public static final int save_button=0x7f09000c;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
@@ -58,9 +60,13 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int cancel_button=0x7f050007;
         public static final int create_new_counter=0x7f050006;
+        public static final int delete_button=0x7f05000b;
+        public static final int edit_name=0x7f050008;
         public static final int enter_counter_name=0x7f050005;
         public static final int hello_world=0x7f050002;
         public static final int manage_counters=0x7f050004;
+        public static final int reset_count=0x7f050009;
+        public static final int save_button=0x7f05000a;
     }
     public static final class style {
         /** 

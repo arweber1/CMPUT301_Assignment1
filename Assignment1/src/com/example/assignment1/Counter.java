@@ -10,12 +10,13 @@ import java.io.Serializable;
 
 public class Counter implements Serializable {
 
+	
 	private String counterName = null;
 	private int count = 0;
 	private static final long serialVersionUID = 4654897;
 	
 	public Counter(String name){
-		counterName = name;
+		this.counterName = name;
 		
 	}
 	public int getCount(){
