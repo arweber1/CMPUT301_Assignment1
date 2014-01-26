@@ -37,7 +37,8 @@ public class EditCounter extends MainActivity {
 	 
 	 
 	 
-	 public String editName(){
+	 public String editName() {
+		 
 		 EditText editName = (EditText) findViewById(R.id.editName);
 		 
 			
@@ -46,31 +47,33 @@ public class EditCounter extends MainActivity {
 		 return newName;
 	 }
 	 
-	 public void resetCount(View v){
+	 public void resetCount(View v) {
+		 
 		 final Button resetButton = (Button) findViewById(R.id.reset_count);
 		 resetCount = !resetCount;
 		 
-		 if (resetCount){
+		 if (resetCount) {
 			 resetButton.setText("Undo Reset");
 			 
 		 }
 		 
-		 else{
+		 else {
 			resetButton.setText("Reset Count");
 			
 		 }
 	 }
 	 
-	 public void deleteCounter(View v){
+	 public void deleteCounter(View v) {
+		 
 		 final Button deleteButton = (Button) findViewById(R.id.delete_button);
 		 deleteCounter = !deleteCounter;
 		 
-		 if (deleteCounter){
+		 if (deleteCounter) {
 			 deleteButton.setText("Undo Delete");
 			 
 		 }
 		 
-		 else{
+		 else {
 			deleteButton.setText("Delete This Counter");
 			
 		 }

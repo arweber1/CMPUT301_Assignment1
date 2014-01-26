@@ -26,19 +26,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
 public class MainActivity extends Activity {
+	
 	private ArrayList<Counter> counterArray = new ArrayList<Counter>();
-   // private String counterName;
-   
-    protected ListView countersListView;
-
-	// Declare an array to store data to fill the list
-	//protected String[] counterArray ;
-
-	// Declare an ArrayAdapter that we use to join the data set and the ListView
-	// is the way of type safe, means you only can pass Strings to this array
-	//Anyway ArrayAdapter supports only TextView
+	protected ListView countersListView;
 	protected ArrayAdapter<String> arrayAdapter;
-	protected ListView listview;
+	private ListView listview;
 	private static final String FILENAME = "counters.sav";
 	
 	
@@ -47,47 +39,37 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Initialize the UI components
-        //countersListView = (ListView) findViewById(R.id.list);
-        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, counterArray);
-        //countersListView.setAdapter(arrayAdapter);
-        //counterArray.add(new Counter("test"));
-        //counterArray = (ArrayList<Counter>)loadClassFile(new File(FILENAME));
         listview = (ListView) findViewById(R.id.list);
-        listview.setAdapter(new CustomAdapter(this, counterArray));
-        //counterArray.add(new Counter("test"));
-        //counterArray.add(new Counter("test2"));
+        counterArray = new ArrayList<Counter>();
+  		loadClassFile(FILENAME, counterArray);
+  		
         
-        //saveInFile(new Counter("test"));
-        loadClassFile(FILENAME,counterArray);
+        listview.setAdapter(new CustomAdapter(this, counterArray));
+        
         
         listview.setOnItemClickListener(new OnItemClickListener() {
        
-        	 @Override
+        	    @Override
         		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        		// TODO Auto-generated method stub
-        		 //saveInFile()
+
         		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
         		 saveInFile(counterArray);
         		}
         });
-        
-       
     }	
     
-  	
-   
-
-		
+  			
 		
   	@Override
     public void onResume() {
   		super.onResume();
-  		((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
   		
+  		counterArray = new ArrayList<Counter>();
+  		loadClassFile(FILENAME, counterArray);
   		
-  		
+        
+        listview.setAdapter(new CustomAdapter(this, counterArray));
   	}
   	
   	
@@ -101,10 +83,8 @@ public class MainActivity extends Activity {
     
     
     //enters counter creation
-    public void addCounter(View v) {
+    public void createCounter(View v) {
 		Intent create = new Intent(MainActivity.this, CreateCounter.class);
-		//create.putExtra("name", counterName);
-		
 	  	startActivityForResult(create, 0);
 	}
     
@@ -125,11 +105,11 @@ public class MainActivity extends Activity {
     
     
     //Enter management activity where the user can edit their counters
-    public void manageCounters(View v){
+    public void manageCounters(View v) {
     	
-    	if (counterArray.size() != 0){
+    	if (counterArray.size() != 0) {
+    		
 	    	Intent manage = new Intent(MainActivity.this, ManageCounters.class);
-			manage.putExtra("list of counters", counterArray);
 		  	startActivity(manage);
     	}
     }
@@ -141,48 +121,39 @@ public class MainActivity extends Activity {
                         
                         BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                         String line = reader.readLine();
-                        //System.out.println(line);
-                       // String line = reader.readLine();
-                       // line = reader.readLine();
                         Gson gson = new Gson();
                         
                        
                         JsonParser parser = new JsonParser();
                         JsonArray array = parser.parse(line).getAsJsonArray();
 
-                        //Counter myTypes = gson.fromJson(new FileReader(reader), Counter.class);
-                        //System.out.println(gson.toJson(myTypes));
-                        //try{
-                        		Counter counter;
+                      
+                        Counter counter;
                         		
-                        		for (int i = 0; i < array.size(); i++){
-                        			counter = gson.fromJson(array.get(i), Counter.class);
-                        			array2.add(counter);
-                        		}
-                                
-                                //System.out.println(counter);
-                                //counterArray.add(counter);
-                                
-                       // System.out.println(object.fromJson(reader, Counter.class) + "hhhhhhhhhhhhhhhhh");
-                        //}catch(EOFException e){
+                        for (int i = 0; i < array.size(); i++) {
+                        	
+                        		counter = gson.fromJson(array.get(i), Counter.class);
+                        		array2.add(counter);
+                        }
+               
                 
         
                   fis.close();
-                } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                }
+          } catch (IOException e) {
+                        
+                e.printStackTrace();
+            }
    	}
     
     protected void saveInFile(ArrayList<Counter> counters) {
+    	
         try {
         	Gson g_object = new Gson();
             String to_be_stored = g_object.toJson(counters);
             FileOutputStream fos = openFileOutput(FILENAME,
                             Context.MODE_PRIVATE);
             
-            /*fos.write(new String(date.toString() + " | " + text)
-                            .getBytes());*/
+
             fos.write(to_be_stored.getBytes());
             
             fos.close();

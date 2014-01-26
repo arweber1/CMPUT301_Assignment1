@@ -24,8 +24,7 @@ public class CreateCounter extends Activity {
 		
 		Intent create = getIntent();
 		EditText editName = (EditText) findViewById(R.id.counter_name);
-		
-		//name = create.getStringExtra("counterName");
+
 		name = editName.getText().toString();
 		
 		if (name.trim().length() != 0){
