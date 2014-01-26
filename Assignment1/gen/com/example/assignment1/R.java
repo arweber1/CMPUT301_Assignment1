@@ -28,7 +28,7 @@ public final class R {
     }
     public static final class id {
         public static final int CreateCounter_container=0x7f090006;
-        public static final int action_settings=0x7f09000f;
+        public static final int action_settings=0x7f090010;
         public static final int addCounter=0x7f090001;
         public static final int cancel_button=0x7f090008;
         public static final int count=0x7f090004;
@@ -42,14 +42,16 @@ public final class R {
         public static final int manage_list=0x7f09000e;
         public static final int reset_count=0x7f09000b;
         public static final int save_button=0x7f09000c;
+        public static final int stats_button=0x7f09000f;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int counter_list_row=0x7f030001;
-        public static final int create_counter=0x7f030002;
-        public static final int edit_counter=0x7f030003;
-        public static final int manage_counters=0x7f030004;
+        public static final int counter_statistics=0x7f030002;
+        public static final int create_counter=0x7f030003;
+        public static final int edit_counter=0x7f030004;
+        public static final int manage_counters=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -67,6 +69,7 @@ public final class R {
         public static final int manage_counters=0x7f050004;
         public static final int reset_count=0x7f050009;
         public static final int save_button=0x7f05000a;
+        public static final int view_stats=0x7f05000c;
     }
     public static final class style {
         /** 
