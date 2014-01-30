@@ -60,8 +60,9 @@ public class MainActivity extends Activity {
 
         		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-        		 saveInFile(counterArray);
         		 updateStats(position);
+        		 saveInFile(counterArray);
+        		 
         		}
 
 				

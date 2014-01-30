@@ -1,0 +1,47 @@
+package com.example.assignment1;
+
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class CounterStatistics extends ManageCounters {
+
+	
+	private ArrayList<Statistics> counterArray = new ArrayList<Statistics>();
+	   
+    protected ListView countersListView;
+
+	protected ArrayAdapter<String> arrayAdapter;
+	protected ListView listview2;
+	private static final String FILENAME = "counters.sav";
+	
+	protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.counter_statistics);
+        
+        
+        
+        
+        
+        
+        
+        
+	}
+	
+	@Override
+	public void onResume() {
+		 
+			super.onResume();
+			counterArray = new ArrayList<Counter>();
+			loadClassFile(FILENAME, counterArray);
+			counterArray = new ArrayList<Counter>(orderCounters(counterArray));
+			saveInFile(counterArray);
+			listview2 = (ListView) findViewById(R.id.manage_list);
+			listview2.setAdapter(new CustomAdapter(this, counterArray, false));
+		  		
+		  		
+		  		
+	 }
+}

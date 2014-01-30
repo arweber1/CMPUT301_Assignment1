@@ -1,12 +1,65 @@
 package com.example.assignment1;
 
-import android.app.Activity;
+import java.util.ArrayList;
+
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class CounterStatistics extends Activity {
+public class CounterStatistics extends MainActivity {
 
+	
+	private ArrayList<Counter> counterArray = new ArrayList<Counter>();
+	   
+   
+	protected ListView listview2;
+	private static final String FILENAME = "counters.sav";
+	private int position = 0;
+	private String text;
+	
+	
+	
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.counter_statistics);
+        
+        
+        
+        
+        
+        
+        
+        
 	}
+	
+	@Override
+	public void onResume() {
+		 
+			super.onResume();
+			setContentView(R.layout.counter_statistics);
+			loadClassFile(FILENAME,counterArray);
+		  		
+		  		
+	 }
+	
+	public void viewByHour(View V){
+		setContentView(R.layout.view_statistics);
+		
+		
+		TextView stats = (TextView) findViewById(R.id.textView1);
+		
+		int size = counterArray.get(position).getHourLogs().size();
+		
+		for (int i  = 0; i < size; i++){
+			text += counterArray.get(position).getHourLogs().get(i).getDate().toString() + 
+					"\t" + String.valueOf(counterArray.get(position).getHourLogs().get(i).getCount()) + "\n";
+		}
+		
+		
+		stats.setText(text);
+	}
+	
+	
 }
+

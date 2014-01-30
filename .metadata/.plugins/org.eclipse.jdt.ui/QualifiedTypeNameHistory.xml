@@ -10,6 +10,6 @@
 <fullyQualifiedTypeName name="android.util.JsonReader"/>
 <fullyQualifiedTypeName name="android.renderscript.Type"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

@@ -14,5 +14,6 @@
 	<string name="save_button">Save Changes</string>
 	<string name="delete_button">Delete This Counter</string>
 	<string name="view_stats">View Counter Statistics</string>
-	<color name="test">#99FFFF</color>
+	<string name="hour_stats">View Counts By Hour</string>
+	
 </resources>
