@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">arweber-notes</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="add_counter">+ Add new counter</string>
+	<string name="manage_counters">Manage counters</string>
+	<string name="enter_counter_name">Enter a name for this counter</string>
+	<string name="create_new_counter">Create</string>
+	<string name="cancel_button">Cancel</string>
+	<string name="edit_name">Edit Name</string>
+	<string name="reset_count">Reset count</string>
+	<string name="save_button">Save Changes</string>
+	
+	<color name="test">#99FFFF</color>
+</resources>

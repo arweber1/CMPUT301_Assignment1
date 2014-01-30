@@ -13,14 +13,15 @@ public class CustomAdapter extends BaseAdapter {
 
 	
 	Context context;
-    //String[] data;
 	ArrayList<Counter> data = new ArrayList<Counter>();
+	boolean mainActivity;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapter(Context context, ArrayList<Counter> data) {
+    public CustomAdapter(Context context, ArrayList<Counter> data, boolean isMainActivity) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.data = data;
+        this.mainActivity = isMainActivity;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -51,10 +52,25 @@ public class CustomAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.counter_list_row, null);
         TextView text = (TextView) vi.findViewById(R.id.counter_name);
         //text.setText(Counter.getCounterName());
-        text.setText(String.valueOf(data.get(position).getCounterName()));
-        text = (TextView) vi.findViewById(R.id.count);
-        //text.setText(Integer.toString(Counter.getCount()));
-        text.setText(String.valueOf(data.get(position).getCount()));
+        
+        if (mainActivity){
+        	text.setText(String.valueOf(data.get(position).getCounterName()));
+        	text = (TextView) vi.findViewById(R.id.count);
+        	text.setText(String.valueOf(data.get(position).getCount()));
+        	//data.get(position).addLog("test");
+        	//data.get(position).addLog("test2");
+        	//text.setText(String.valueOf(data.get(position).getHourLogs()));
+        }
+        
+        else{
+        	text.setText(String.valueOf(data.get(position).getCounterName()) + "\n\n" + 
+        			"Last updated: " + data.get(position).getDate());
+        	text = (TextView) vi.findViewById(R.id.count);
+        	text.setText(String.valueOf("Current count: " + data.get(position).getCount()));
+        }
+        
+        
+        
         return vi;
 	}
 

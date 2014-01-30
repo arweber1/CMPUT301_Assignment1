@@ -1,0 +1,15 @@
+package com.example.assignment1;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Statistic implements Serializable{
+
+	
+	int count = 0;
+	
+	public Statistic(Date date, int count){
+		
+		
+	}
+}

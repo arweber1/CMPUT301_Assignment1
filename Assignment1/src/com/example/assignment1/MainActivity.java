@@ -1,13 +1,16 @@
 package com.example.assignment1;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +20,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -27,11 +29,15 @@ import com.google.gson.JsonParser;
 
 public class MainActivity extends Activity {
 	
-	private ArrayList<Counter> counterArray = new ArrayList<Counter>();
+	private ArrayList<Counter> counterArray;// = new ArrayList<Counter>();
 	protected ListView countersListView;
-	protected ArrayAdapter<String> arrayAdapter;
+	//protected ArrayAdapter<String> arrayAdapter;
 	private ListView listview;
-	private static final String FILENAME = "counters.sav";
+	private static final String COUNTERFILE = "counters.sav";
+	private static final String STATSFILE = "statistics.sav";
+	
+	
+	
 	
 	
     @Override
@@ -41,10 +47,10 @@ public class MainActivity extends Activity {
         
         listview = (ListView) findViewById(R.id.list);
         counterArray = new ArrayList<Counter>();
-  		loadClassFile(FILENAME, counterArray);
+  		loadClassFile(COUNTERFILE, counterArray);
   		
         
-        listview.setAdapter(new CustomAdapter(this, counterArray));
+        listview.setAdapter(new CustomAdapter(this, counterArray, true));
         
         
         listview.setOnItemClickListener(new OnItemClickListener() {
@@ -55,7 +61,10 @@ public class MainActivity extends Activity {
         		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
         		 saveInFile(counterArray);
+        		 updateStats(position);
         		}
+
+				
         });
     }	
     
@@ -66,10 +75,10 @@ public class MainActivity extends Activity {
   		super.onResume();
   		
   		counterArray = new ArrayList<Counter>();
-  		loadClassFile(FILENAME, counterArray);
+  		loadClassFile(COUNTERFILE, counterArray);
   		
         
-        listview.setAdapter(new CustomAdapter(this, counterArray));
+        listview.setAdapter(new CustomAdapter(this, counterArray, true));
   	}
   	
   	
@@ -126,7 +135,7 @@ public class MainActivity extends Activity {
                        
                         JsonParser parser = new JsonParser();
                         JsonArray array = parser.parse(line).getAsJsonArray();
-
+                        //System.out.println(array);
                       
                         Counter counter;
                         		
@@ -150,7 +159,7 @@ public class MainActivity extends Activity {
         try {
         	Gson g_object = new Gson();
             String to_be_stored = g_object.toJson(counters);
-            FileOutputStream fos = openFileOutput(FILENAME,
+            FileOutputStream fos = openFileOutput(COUNTERFILE,
                             Context.MODE_PRIVATE);
             
 
@@ -166,5 +175,81 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
         }
 }
-  }
+    
+  //orders the counter array by descending order
+    public ArrayList<Counter> orderCounters(ArrayList<Counter> counters) {
+    	
+    	int max;
+    	int counterPosition = 0;
+    	int count;
+    	ArrayList<Counter> counterArray = new ArrayList<Counter>();
+    	
+    	while (counters.size() != 0){
+    		
+    		max = 0;
+    		
+    		for (int i = 0; i < counters.size(); i++){
+    			
+    			count = counters.get(i).getCount();
+    			
+    			if (count >= max){
+    				
+    				max = count;
+    				counterPosition = i;
+    			}
+    			
+    		}
+    		
+    		counterArray.add(counters.get(counterPosition));
+    		counters.remove(counterPosition);
+    		
+    	}
+    	
+    		
 
+    	return counterArray;
+    }
+  
+
+
+private void updateStats(int position) {
+	// TODO Auto-generated method stub
+	ArrayList<Statistic> statistics = counterArray.get(position).getHourLogs();
+	Date date = counterArray.get(position).getDate();   // given date
+	int hour;
+	Calendar calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
+	calendar.setTime(date);   // assigns calendar to given date 
+	hour = calendar.get(Calendar.HOUR); // gets hour in 24h format
+	
+	int size = counterArray.get(position).getHourLogs().size();
+	date = counterArray.get(position).getHourLogs().get(size - 1).date;
+	//System.out.println(date);
+	calendar.setTime(date);
+	int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+	
+	//System.out.println(hour);
+	//System.out.println(currentHour);
+	if (statistics.size() != 0 && currentHour == hour){
+		counterArray.get(position).getHourLogs().get(statistics.size()-1).increment();
+	}
+	
+	else{
+		Statistic stat = new Statistic(new Date());
+		counterArray.get(position).addLog(stat);
+		//System.out.println(stat);
+	}
+	
+	//for (int i = 0; i < dates.size(); i++){
+		
+		//if (curre)
+		
+		
+	//}
+	//hour = calendar.get(Calendar.HOUR);        // gets hour in 12h format
+	
+	//calendar.get(Calendar.MONTH);
+	
+	
+}
+
+}

@@ -1,19 +1,12 @@
 package com.example.assignment1;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 
 public class EditCounter extends MainActivity {
 	
@@ -33,6 +26,7 @@ public class EditCounter extends MainActivity {
 	        counterPosition = extras.getInt("counter position");
 	        
 	        loadClassFile(FILENAME,counterArray);
+	       
 	 }
 	 
 	 
@@ -43,7 +37,7 @@ public class EditCounter extends MainActivity {
 		 
 			
 		 newName = editName.getText().toString();
-		 System.out.println(newName);
+		
 		 return newName;
 	 }
 	 
