@@ -3,11 +3,14 @@ package com.example.assignment1;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditCounter extends MainActivity {
 	
@@ -17,6 +20,7 @@ public class EditCounter extends MainActivity {
 	private int counterPosition;
 	private String newName;
 	private boolean deleteCounter = false;
+	private EditText editName;
 	
 	 @Override
 	    protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +29,18 @@ public class EditCounter extends MainActivity {
 	        Bundle extras = getIntent().getExtras();
 	       
 	        counterPosition = extras.getInt("counter position");
-	        
+	        newName = extras.getString("counter name");
 	        loadClassFile(FILENAME,counterArray);
+	        editName = (EditText) findViewById(R.id.editName);
+			editName.setText(newName);
 	       
 	 }
 	 
 	 
 	 
 	 public String editName() {
-		 
-		 EditText editName = (EditText) findViewById(R.id.editName);
-		 
 			
-		 newName = editName.getText().toString();
-		
+		 newName = editName.getText().toString().trim();
 		 return newName;
 	 }
 	 
@@ -83,15 +85,44 @@ public class EditCounter extends MainActivity {
 	 
 	 public void saveChanges(View v){
 		 
+		 boolean saveAndExit = true;
+		 
 		 if (deleteCounter){
 			 counterArray.remove(counterPosition);
 			 
 		 }
 		 
 		 else{ 
-			 newName = editName();
-			 if (newName.trim().length() != 0){
+			newName = editName();
+			Context context = getApplicationContext();
+			CharSequence text;
+			int duration = Toast.LENGTH_LONG;
+			 
+			 
+
+				
+			
+			
+			 if (newName.length() != 0 && newName.length() <= 20){
 				 counterArray.get(counterPosition).setCounterName(newName);
+			 }
+			 
+			 else{
+				 
+				 saveAndExit = false;
+				 if (newName.length() == 0){
+						text = "Name cannot be blank";
+						
+					}
+						
+					else{
+						text = "Name exceeds 20 characters \nLength of input: " + newName.length() + " characters";
+					}
+						
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.setGravity(Gravity.CENTER|Gravity.CENTER, 0, 0);
+					toast.show();
+					
 			 }
 			 
 			 if (resetCount){
@@ -99,8 +130,11 @@ public class EditCounter extends MainActivity {
 			 }
 		 }
 		 
-		 saveInFile(counterArray);
-		 finish();
+		 if (saveAndExit){
+			 saveInFile(counterArray);
+			 finish();
+		 }
+		 
 	 }
 	 
 	 

@@ -54,6 +54,7 @@ public class ManageCounters extends MainActivity {
 	       
 	        		Intent edit = new Intent(ManageCounters.this, EditCounter.class);
 	        		edit.putExtra("counter position", (int)position);
+	        		edit.putExtra("counter name", counterArray.get(position).getCounterName());
 	        		startActivity(edit);
 	   
 	        		}

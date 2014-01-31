@@ -31,15 +31,16 @@ import com.google.gson.JsonParser;
 public class MainActivity extends Activity {
 	
 	private ArrayList<Counter> counterArray;// = new ArrayList<Counter>();
-	protected ListView countersListView;
+	
 	//protected ArrayAdapter<String> arrayAdapter;
 	private ListView listview;
 	private static final String COUNTERFILE = "counters.sav";
-	private static final String STATSFILE = "statistics.sav";
-	
-	
-	
-	
+	private Calendar calendar;
+	private Calendar calendar2;
+	private ArrayList<Statistic> statistics;
+	private Date date;
+	private int size;
+	private long timeInHours;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,27 +218,40 @@ public class MainActivity extends Activity {
 
 private void updateStats(int position) {
 	// TODO Auto-generated method stub
-	ArrayList<Statistic> statistics = counterArray.get(position).getHourLogs();
-	Date date = counterArray.get(position).getDate();   // given date
+	
+	updateHours(position);
+	updateDays(position);
+	updateWeeks(position);
+	updateMonths(position);
+	
+	
+}
+
+
+
+private void updateHours(int position){
+	
+	statistics = counterArray.get(position).getHourLogs();
+	date = counterArray.get(position).getDate();   // given date
 	int hour;
 	
-	Calendar calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
-	Calendar calendar2 = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
-	//dateFormat.setCalendar(calendar); 
+	calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
+	calendar2 = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
+	 
 	calendar.setTime(date);   // assigns calendar to given date 
 	hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
 	
 	
-	int size = counterArray.get(position).getHourLogs().size();
+	size = statistics.size();
 	if (size != 0){
 		date = counterArray.get(position).getHourLogs().get(size - 1).date;
 	}
 	
-	calendar.setTime(date);
+	calendar2.setTime(date);
 	int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 	
-	
-	if (statistics.size() != 0 && currentHour == hour){
+	timeInHours = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
+	if (statistics.size() != 0 && timeInHours < 1){
 		counterArray.get(position).getHourLogs().get(statistics.size()-1).increment();
 	}
 	
@@ -247,11 +261,9 @@ private void updateStats(int position) {
 		counterArray.get(position).getHourLogs().get(statistics.size()-1).increment();
 		
 	}
-	
-	
-	
-	
-	
+}
+
+private void updateDays(int position){
 	
 	statistics = counterArray.get(position).getDayLogs();
 	date = counterArray.get(position).getDate();   // given date
@@ -261,16 +273,16 @@ private void updateStats(int position) {
 	int day = calendar.get(Calendar.DAY_OF_WEEK); // gets hour in 24h format
 	
 	
-	size = counterArray.get(position).getDayLogs().size();
+	size = statistics.size();
 	if (size != 0){
 		date = counterArray.get(position).getDayLogs().get(size - 1).date;
 	}
 	
-	calendar.setTime(date);
+	calendar2.setTime(date);
 	int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 	
-	
-	if (statistics.size() != 0 && currentDay == day){
+	timeInHours = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
+	if (statistics.size() != 0 && timeInHours < 24){
 		counterArray.get(position).getDayLogs().get(statistics.size()-1).increment();
 	}
 	
@@ -280,13 +292,12 @@ private void updateStats(int position) {
 		counterArray.get(position).getDayLogs().get(statistics.size()-1).increment();
 		
 	}
+}
+
+
+private void updateWeeks(int position){
 	
-	
-	
-	
-	
-	
-	calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 	
 	statistics = counterArray.get(position).getWeekLogs();
 	//date = counterArray.get(position).getDate();   // given date
@@ -298,7 +309,7 @@ private void updateStats(int position) {
 	int week = calendar.get(Calendar.DAY_OF_WEEK);
 	System.out.println(week);
 	
-	size = counterArray.get(position).getWeekLogs().size();
+	size = statistics.size();
 	if (size != 0){
 		date = counterArray.get(position).getWeekLogs().get(size - 1).date;
 		
@@ -306,11 +317,11 @@ private void updateStats(int position) {
 	
 	
 	calendar2.setTime(date);
-	int currentWeek = calendar.get(Calendar.DAY_OF_WEEK);
-	long time = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
+
+	timeInHours = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
 	//System.out.println(time);
 	
-	if (statistics.size() != 0 && time < 168 ){
+	if (statistics.size() != 0 && timeInHours < 168 ){
 		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
 	}
 	
@@ -321,9 +332,9 @@ private void updateStats(int position) {
 		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
 		
 	}
-	
-	
-	
+}
+
+private void updateMonths(int position){
 	
 	statistics = counterArray.get(position).getMonthLogs();
 	date = counterArray.get(position).getDate();   // given date
@@ -331,18 +342,18 @@ private void updateStats(int position) {
 	
 	calendar.setTime(date);   // assigns calendar to given date 
 	int month = calendar.get(Calendar.MONTH); // gets hour in 24h format
+	int year = calendar.get(Calendar.YEAR);
 	
-	
-	size = counterArray.get(position).getMonthLogs().size();
+	size = statistics.size();
 	if (size != 0){
 		date = counterArray.get(position).getMonthLogs().get(size - 1).date;
 	}
 	
-	calendar.setTime(date);
-	int currentMonth = calendar.get(Calendar.MONTH);
+	calendar2.setTime(date);
+	int currentMonth = calendar2.get(Calendar.MONTH);
+	int currentYear = calendar2.get(Calendar.YEAR);
 	
-	
-	if (statistics.size() != 0 && currentMonth == month){
+	if (statistics.size() != 0 && currentMonth == month && year == currentYear){
 		counterArray.get(position).getMonthLogs().get(statistics.size()-1).increment();
 	}
 	
@@ -352,8 +363,7 @@ private void updateStats(int position) {
 		counterArray.get(position).getMonthLogs().get(statistics.size()-1).increment();
 		
 	}
-	
-	
 }
+
 
 }

@@ -11,6 +11,7 @@
         android:layout_alignBottom="@+id/edit_textView"
         android:layout_alignParentRight="true"
         android:inputType="textCapSentences"
+        android:selectAllOnFocus="true"
         android:ems="10" />
 
     <Button
