@@ -3,6 +3,7 @@ package com.example.assignment1;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -73,7 +74,12 @@ public class EditCounter extends MainActivity {
 		 }
 	 }
 	 
-	 
+	 public void viewStatistics(View v){
+		 
+		 Intent statistics = new Intent(EditCounter.this, CounterStatistics.class);
+		 statistics.putExtra("counter position", (int)counterPosition);
+		 startActivity(statistics);
+	 }
 	 
 	 public void saveChanges(View v){
 		 
@@ -96,4 +102,6 @@ public class EditCounter extends MainActivity {
 		 saveInFile(counterArray);
 		 finish();
 	 }
+	 
+	 
 }

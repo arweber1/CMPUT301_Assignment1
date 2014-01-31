@@ -19,9 +19,9 @@ public class Counter implements Serializable {
 	private Date date;
 	
 	private ArrayList<Statistic> hourLogs;
-	private ArrayList<String> dayLogs;
-	private ArrayList<String> weekLogs;
-	private ArrayList<String> monthLogs;
+	private ArrayList<Statistic> dayLogs;
+	private ArrayList<Statistic> weekLogs;
+	private ArrayList<Statistic> monthLogs;
 	
 	private int hourCount = 0;
 	private int dayCount = 0;
@@ -32,18 +32,18 @@ public class Counter implements Serializable {
 		this.counterName = name;
 		this.date = new Date();
 		this.hourLogs = new ArrayList<Statistic>();
-		this.dayLogs = new ArrayList<String>();
-		this.weekLogs = new ArrayList<String>();
-		this.monthLogs = new ArrayList<String>();
+		this.dayLogs = new ArrayList<Statistic>();
+		this.weekLogs = new ArrayList<Statistic>();
+		this.monthLogs = new ArrayList<Statistic>();
 	}
 	
 	
-	public ArrayList<String> getDayLogs() {
+	public ArrayList<Statistic> getDayLogs() {
 		return dayLogs;
 	}
 
 
-	public void setDayLogs(ArrayList<String> dayLogs) {
+	public void setDayLogs(ArrayList<Statistic> dayLogs) {
 		this.dayLogs = dayLogs;
 	}
 
@@ -96,27 +96,27 @@ public class Counter implements Serializable {
 		this.hourLogs = hourLogs;
 	}
 	
-	public ArrayList<String> getWeekLogs() {
+	public ArrayList<Statistic> getWeekLogs() {
 		return dayLogs;
 	}
 	
-	public void setWeekLogs(ArrayList<String> weekLogs) {
+	public void setWeekLogs(ArrayList<Statistic> weekLogs) {
 		this.dayLogs = weekLogs;
 	}
 	
-	public ArrayList<String> getMonthLogs() {
+	public ArrayList<Statistic> getMonthLogs() {
 		return weekLogs;
 	}
 	
-	public void setMonthLogs(ArrayList<String> monthLogs) {
+	public void setMonthLogs(ArrayList<Statistic> monthLogs) {
 		this.weekLogs = monthLogs;
 	}
 	
-	public ArrayList<String> getYearLogs() {
+	public ArrayList<Statistic> getYearLogs() {
 		return monthLogs;
 	}
 	
-	public void setYearLogs(ArrayList<String> yearLogs) {
+	public void setYearLogs(ArrayList<Statistic> yearLogs) {
 		this.monthLogs = yearLogs;
 	}
 
@@ -149,11 +149,28 @@ public class Counter implements Serializable {
 		this.date = new Date();
 	}
 	
-	public void addLog(Statistic log){
+	public void addHourLog(Statistic log){
 		
 		this.hourLogs.add(log);
 		
 	}
 	
+public void addDayLog(Statistic log){
+		
+		this.dayLogs.add(log);
+		
+	}
+
+public void addWeekLog(Statistic log){
+	
+	this.weekLogs.add(log);
+	
+}
+
+public void addMonthLog(Statistic log){
+	
+	this.monthLogs.add(log);
+	
+}
 	 
 }

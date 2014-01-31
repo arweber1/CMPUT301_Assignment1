@@ -60,9 +60,10 @@ public class MainActivity extends Activity {
 
         		 counterArray.get(position).increment();
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+        		 //updateStats(position);
+        		 //saveInFile(counterArray);
         		 updateStats(position);
         		 saveInFile(counterArray);
-        		 
         		}
 
 				
@@ -220,35 +221,65 @@ private void updateStats(int position) {
 	int hour;
 	Calendar calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
 	calendar.setTime(date);   // assigns calendar to given date 
-	hour = calendar.get(Calendar.HOUR); // gets hour in 24h format
+	hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
+	
 	
 	int size = counterArray.get(position).getHourLogs().size();
-	date = counterArray.get(position).getHourLogs().get(size - 1).date;
-	//System.out.println(date);
+	if (size != 0){
+		date = counterArray.get(position).getHourLogs().get(size - 1).date;
+	}
+	
 	calendar.setTime(date);
 	int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 	
-	//System.out.println(hour);
-	//System.out.println(currentHour);
+	
 	if (statistics.size() != 0 && currentHour == hour){
 		counterArray.get(position).getHourLogs().get(statistics.size()-1).increment();
 	}
 	
 	else{
 		Statistic stat = new Statistic(new Date());
-		counterArray.get(position).addLog(stat);
-		//System.out.println(stat);
+		counterArray.get(position).addHourLog(stat);
+		counterArray.get(position).getHourLogs().get(statistics.size()-1).increment();
+		
 	}
 	
-	//for (int i = 0; i < dates.size(); i++){
-		
-		//if (curre)
-		
-		
-	//}
-	//hour = calendar.get(Calendar.HOUR);        // gets hour in 12h format
 	
-	//calendar.get(Calendar.MONTH);
+	
+	
+	
+	
+	statistics = counterArray.get(position).getDayLogs();
+	date = counterArray.get(position).getDate();   // given date
+	
+	
+	calendar.setTime(date);   // assigns calendar to given date 
+	int day = calendar.get(Calendar.DAY_OF_WEEK); // gets hour in 24h format
+	
+	
+	size = counterArray.get(position).getDayLogs().size();
+	if (size != 0){
+		date = counterArray.get(position).getDayLogs().get(size - 1).date;
+	}
+	
+	calendar.setTime(date);
+	int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+	
+	
+	if (statistics.size() != 0 && currentDay == day){
+		counterArray.get(position).getDayLogs().get(statistics.size()-1).increment();
+	}
+	
+	else{
+		Statistic stat = new Statistic(new Date());
+		counterArray.get(position).addDayLog(stat);
+		counterArray.get(position).getDayLogs().get(statistics.size()-1).increment();
+		
+	}
+	
+	
+	
+	
 	
 	
 }

@@ -15,5 +15,9 @@
 	<string name="delete_button">Delete This Counter</string>
 	<string name="view_stats">View Counter Statistics</string>
 	<string name="hour_stats">View Counts By Hour</string>
+	<string name="day_stats">View Counts By Day</string>
+	<string name="week_stats">View Counts By Week</string>
+	<string name="month_stats">View Counts By Month</string>
+	
 	
 </resources>

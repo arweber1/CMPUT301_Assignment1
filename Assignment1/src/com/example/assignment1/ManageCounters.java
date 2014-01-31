@@ -79,11 +79,11 @@ public void onResume() {
 	
 	
  
- public void viewStatistics(View v){
+ /*public void viewStatistics(View v){
 	 
 	 Intent statistics = new Intent(ManageCounters.this, CounterStatistics.class);
 	 startActivity(statistics);
- }
+ }*/
  
  
  
