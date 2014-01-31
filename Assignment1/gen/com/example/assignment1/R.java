@@ -35,16 +35,16 @@ public final class R {
         public static final int delete_button=0x7f080012;
         public static final int editName=0x7f08000d;
         public static final int edit_textView=0x7f08000e;
-        public static final int hour_button=0x7f080006;
+        public static final int hour_button=0x7f080009;
         public static final int list=0x7f080003;
         public static final int manageCounters=0x7f080002;
         public static final int manage_list=0x7f080013;
-        public static final int month_button=0x7f080009;
+        public static final int month_button=0x7f080008;
         public static final int reset_count=0x7f080010;
         public static final int save_button=0x7f08000f;
         public static final int stats_button=0x7f080011;
         public static final int textView1=0x7f080000;
-        public static final int week_button=0x7f080008;
+        public static final int week_button=0x7f080006;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

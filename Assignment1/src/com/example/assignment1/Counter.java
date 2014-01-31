@@ -97,15 +97,15 @@ public class Counter implements Serializable {
 	}
 	
 	public ArrayList<Statistic> getWeekLogs() {
-		return dayLogs;
+		return weekLogs;
 	}
 	
 	public void setWeekLogs(ArrayList<Statistic> weekLogs) {
-		this.dayLogs = weekLogs;
+		this.weekLogs = weekLogs;
 	}
 	
 	public ArrayList<Statistic> getMonthLogs() {
-		return weekLogs;
+		return monthLogs;
 	}
 	
 	public void setMonthLogs(ArrayList<Statistic> monthLogs) {

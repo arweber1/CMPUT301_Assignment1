@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -219,7 +220,9 @@ private void updateStats(int position) {
 	ArrayList<Statistic> statistics = counterArray.get(position).getHourLogs();
 	Date date = counterArray.get(position).getDate();   // given date
 	int hour;
+	
 	Calendar calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
+	//dateFormat.setCalendar(calendar); 
 	calendar.setTime(date);   // assigns calendar to given date 
 	hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
 	
@@ -280,6 +283,69 @@ private void updateStats(int position) {
 	
 	
 	
+	
+	
+	//calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+	
+	/*statistics = counterArray.get(position).getWeekLogs();
+	date = counterArray.get(position).getDate();   // given date
+	
+	
+	calendar.setTime(date);   // assigns calendar to given date 
+	int week = calendar.get(Calendar.DAY_OF_WEEK); // gets hour in 24h format
+	
+	
+	size = counterArray.get(position).getWeekLogs().size();
+	if (size != 0){
+		date = counterArray.get(position).getWeekLogs().get(size - 1).date;
+	}
+	
+	calendar.setTime(date);
+	int currentWeek = calendar.get(Calendar.DAY_OF_WEEK);
+	
+	
+	if (statistics.size() != 0 && currentWeek == week){
+		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
+	}
+	
+	else{
+		calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+		Statistic stat = new Statistic(calendar.getTime());
+		counterArray.get(position).addWeekLog(stat);
+		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
+		
+	}*/
+	
+	
+	
+	
+	statistics = counterArray.get(position).getMonthLogs();
+	date = counterArray.get(position).getDate();   // given date
+	
+	
+	calendar.setTime(date);   // assigns calendar to given date 
+	int month = calendar.get(Calendar.MONTH); // gets hour in 24h format
+	
+	
+	size = counterArray.get(position).getMonthLogs().size();
+	if (size != 0){
+		date = counterArray.get(position).getMonthLogs().get(size - 1).date;
+	}
+	
+	calendar.setTime(date);
+	int currentMonth = calendar.get(Calendar.MONTH);
+	
+	
+	if (statistics.size() != 0 && currentMonth == month){
+		counterArray.get(position).getMonthLogs().get(statistics.size()-1).increment();
+	}
+	
+	else{
+		Statistic stat = new Statistic(new Date());
+		counterArray.get(position).addMonthLog(stat);
+		counterArray.get(position).getMonthLogs().get(statistics.size()-1).increment();
+		
+	}
 	
 	
 }

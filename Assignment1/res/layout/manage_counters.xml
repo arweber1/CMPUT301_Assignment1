@@ -7,26 +7,10 @@
         android:id="@+id/manage_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/stats_button" >
+        android:layout_alignParentLeft="true" >
 
     </ListView>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/stats_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:onClick="viewStatistics"
-        android:text="@string/view_stats" />
+  
 
 </RelativeLayout>
