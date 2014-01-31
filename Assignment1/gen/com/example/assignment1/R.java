@@ -25,7 +25,7 @@ public final class R {
     }
     public static final class id {
         public static final int CreateCounter_container=0x7f08000a;
-        public static final int action_settings=0x7f080014;
+        public static final int action_settings=0x7f080015;
         public static final int addCounter=0x7f080001;
         public static final int cancel_button=0x7f08000c;
         public static final int count=0x7f080004;
@@ -42,6 +42,7 @@ public final class R {
         public static final int month_button=0x7f080008;
         public static final int reset_count=0x7f080010;
         public static final int save_button=0x7f08000f;
+        public static final int scrollView1=0x7f080014;
         public static final int stats_button=0x7f080011;
         public static final int textView1=0x7f080000;
         public static final int week_button=0x7f080006;

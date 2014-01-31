@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,9 +29,7 @@ import com.google.gson.JsonParser;
 
 public class MainActivity extends Activity {
 	
-	private ArrayList<Counter> counterArray;// = new ArrayList<Counter>();
-	
-	//protected ArrayAdapter<String> arrayAdapter;
+	private ArrayList<Counter> counterArray;
 	private ListView listview;
 	private static final String COUNTERFILE = "counters.sav";
 	private Calendar calendar;
@@ -48,23 +45,22 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         listview = (ListView) findViewById(R.id.list);
+        
+        //load the counters and set up the listview
         counterArray = new ArrayList<Counter>();
   		loadClassFile(COUNTERFILE, counterArray);
-  		
+  		listview.setAdapter(new CustomAdapter(this, counterArray, true));
         
-        listview.setAdapter(new CustomAdapter(this, counterArray, true));
-        
-        
+        //set up listener
         listview.setOnItemClickListener(new OnItemClickListener() {
        
         	    @Override
         		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        		 counterArray.get(position).increment();
+        		 counterArray.get(position).increment(); //increment counter
         		 ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-        		 //updateStats(position);
-        		 //saveInFile(counterArray);
-        		 updateStats(position);
+        		
+        		 updateStats(position); //check which stats need to be updated
         		 saveInFile(counterArray);
         		}
 
@@ -77,6 +73,7 @@ public class MainActivity extends Activity {
   	@Override
     public void onResume() {
   		super.onResume();
+  		//reload counters and set up the listview
   		
   		counterArray = new ArrayList<Counter>();
   		loadClassFile(COUNTERFILE, counterArray);
@@ -117,7 +114,7 @@ public class MainActivity extends Activity {
     }
     
     
-    //Enter management activity where the user can edit their counters
+    //Enter management activity where the user can manage their counters
     public void manageCounters(View v) {
     	
     	if (counterArray.size() != 0) {
@@ -127,6 +124,8 @@ public class MainActivity extends Activity {
     	}
     }
     
+    
+    //load the counters using gson
     public void loadClassFile(String file, ArrayList<Counter> array2)
     	{
     	try {
@@ -139,10 +138,10 @@ public class MainActivity extends Activity {
                        
                         JsonParser parser = new JsonParser();
                         JsonArray array = parser.parse(line).getAsJsonArray();
-                        //System.out.println(array);
+                        
                       
-                        Counter counter;
-                        		
+                        //iterate through the loaded array and add it to the counterArray
+                        Counter counter;	
                         for (int i = 0; i < array.size(); i++) {
                         	
                         		counter = gson.fromJson(array.get(i), Counter.class);
@@ -158,6 +157,9 @@ public class MainActivity extends Activity {
             }
    	}
     
+    
+    
+    //save the counters using gson
     protected void saveInFile(ArrayList<Counter> counters) {
     	
         try {
@@ -172,52 +174,20 @@ public class MainActivity extends Activity {
             fos.close();
         	
         } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                
                 e.printStackTrace();
         } catch (IOException e) {
-                // TODO Auto-generated catch block
+               
                 e.printStackTrace();
         }
 }
     
-  //orders the counter array by descending order
-    public ArrayList<Counter> orderCounters(ArrayList<Counter> counters) {
-    	
-    	int max;
-    	int counterPosition = 0;
-    	int count;
-    	ArrayList<Counter> counterArray = new ArrayList<Counter>();
-    	
-    	while (counters.size() != 0){
-    		
-    		max = 0;
-    		
-    		for (int i = 0; i < counters.size(); i++){
-    			
-    			count = counters.get(i).getCount();
-    			
-    			if (count >= max){
-    				
-    				max = count;
-    				counterPosition = i;
-    			}
-    			
-    		}
-    		
-    		counterArray.add(counters.get(counterPosition));
-    		counters.remove(counterPosition);
-    		
-    	}
-    	
-    		
-
-    	return counterArray;
-    }
+  
   
 
-
+//function that calls every update method
 private void updateStats(int position) {
-	// TODO Auto-generated method stub
+	
 	
 	updateHours(position);
 	updateDays(position);
@@ -233,13 +203,14 @@ private void updateHours(int position){
 	
 	statistics = counterArray.get(position).getHourLogs();
 	date = counterArray.get(position).getDate();   // given date
-	int hour;
+	
 	
 	calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
-	calendar2 = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
+	calendar2 = GregorianCalendar.getInstance(Locale.getDefault()); 
 	 
-	calendar.setTime(date);   // assigns calendar to given date 
-	hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
+	//set to current date
+	calendar.setTime(date); 
+	
 	
 	
 	size = statistics.size();
@@ -247,14 +218,20 @@ private void updateHours(int position){
 		date = counterArray.get(position).getHourLogs().get(size - 1).date;
 	}
 	
+	//set the date to the last log entry
 	calendar2.setTime(date);
-	int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 	
+	
+	
+	//check if one hour has passed since the last log was added
 	timeInHours = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
+	
+	//If an hour has not passed then increment the count of the last log
 	if (statistics.size() != 0 && timeInHours < 1){
 		counterArray.get(position).getHourLogs().get(statistics.size()-1).increment();
 	}
 	
+	//otherwise add a new log
 	else{
 		Statistic stat = new Statistic(new Date());
 		counterArray.get(position).addHourLog(stat);
@@ -263,6 +240,8 @@ private void updateHours(int position){
 	}
 }
 
+
+
 private void updateDays(int position){
 	
 	statistics = counterArray.get(position).getDayLogs();
@@ -270,7 +249,7 @@ private void updateDays(int position){
 	
 	
 	calendar.setTime(date);   // assigns calendar to given date 
-	int day = calendar.get(Calendar.DAY_OF_WEEK); // gets hour in 24h format
+	
 	
 	
 	size = statistics.size();
@@ -278,14 +257,18 @@ private void updateDays(int position){
 		date = counterArray.get(position).getDayLogs().get(size - 1).date;
 	}
 	
+	//set the date to the last log entry
 	calendar2.setTime(date);
-	int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 	
+	//check if one day has passed
 	timeInHours = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
+	
+	//If one day has not passed then increment the last log entry
 	if (statistics.size() != 0 && timeInHours < 24){
 		counterArray.get(position).getDayLogs().get(statistics.size()-1).increment();
 	}
 	
+	//Otherwise add a new day entry
 	else{
 		Statistic stat = new Statistic(new Date());
 		counterArray.get(position).addDayLog(stat);
@@ -297,17 +280,15 @@ private void updateDays(int position){
 
 private void updateWeeks(int position){
 	
-calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+   calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek()); 
 	
 	statistics = counterArray.get(position).getWeekLogs();
-	//date = counterArray.get(position).getDate();   // given date
 	
-	//System.out.println(calendar.getTime());
-	  // assigns calendar to given date 
-	date = calendar.getTime(); // gets hour in 24h format
-	calendar.setTime(date); 
-	int week = calendar.get(Calendar.DAY_OF_WEEK);
-	System.out.println(week);
+	date = calendar.getTime(); 
+	
+	calendar.setTime(date); //set the date to the first day of the current week
+	
+	
 	
 	size = statistics.size();
 	if (size != 0){
@@ -315,16 +296,18 @@ calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 		
 	}
 	
-	
+	//get the date of the last log entry
 	calendar2.setTime(date);
 
+	//check if one week has passed
 	timeInHours = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
-	//System.out.println(time);
 	
+	//If one week has not passed then increment the last log entry
 	if (statistics.size() != 0 && timeInHours < 168 ){
 		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
 	}
 	
+	//Otherwise add a new week log entry that starts at the beginning of the week
 	else{
 		calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 		Statistic stat = new Statistic(calendar.getTime());
@@ -341,7 +324,7 @@ private void updateMonths(int position){
 	
 	
 	calendar.setTime(date);   // assigns calendar to given date 
-	int month = calendar.get(Calendar.MONTH); // gets hour in 24h format
+	int month = calendar.get(Calendar.MONTH); 
 	int year = calendar.get(Calendar.YEAR);
 	
 	size = statistics.size();
@@ -349,14 +332,17 @@ private void updateMonths(int position){
 		date = counterArray.get(position).getMonthLogs().get(size - 1).date;
 	}
 	
+	//get the date of the last log entry
 	calendar2.setTime(date);
 	int currentMonth = calendar2.get(Calendar.MONTH);
 	int currentYear = calendar2.get(Calendar.YEAR);
 	
+	//For months, check if the month has changed and if the year has changed
 	if (statistics.size() != 0 && currentMonth == month && year == currentYear){
 		counterArray.get(position).getMonthLogs().get(statistics.size()-1).increment();
 	}
 	
+	//If they have changed then add a new log entry
 	else{
 		Statistic stat = new Statistic(new Date());
 		counterArray.get(position).addMonthLog(stat);
@@ -364,6 +350,7 @@ private void updateMonths(int position){
 		
 	}
 }
+
 
 
 }

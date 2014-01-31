@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
+/*
+ * This is the custom adapter for the various listviews throughout the app
+ * 
+ */
 public class CustomAdapter extends BaseAdapter {
 
 	
@@ -18,7 +23,7 @@ public class CustomAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
 
     public CustomAdapter(Context context, ArrayList<Counter> data, boolean isMainActivity) {
-        // TODO Auto-generated constructor stub
+       
         this.context = context;
         this.data = data;
         this.mainActivity = isMainActivity;
@@ -28,40 +33,39 @@ public class CustomAdapter extends BaseAdapter {
     
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		 return data.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
+		
 		return data.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+		
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		View vi = convertView;
         if (vi == null)
             vi = inflater.inflate(R.layout.counter_list_row, null);
         TextView text = (TextView) vi.findViewById(R.id.counter_name);
-        //text.setText(Counter.getCounterName());
-        
+      
+        //Set up the view for the MainActivity
         if (mainActivity){
         	text.setText(String.valueOf(data.get(position).getCounterName()));
         	text = (TextView) vi.findViewById(R.id.count);
         	text.setText(String.valueOf(data.get(position).getCount()));
-        	//data.get(position).addLog("test");
-        	//data.get(position).addLog("test2");
-        	//text.setText(String.valueOf(data.get(position).getHourLogs()));
+        	
         }
         
+        //Otherwise set up the view for ManageCounters
         else{
         	text.setText(String.valueOf(data.get(position).getCounterName()) + "\n\n" + 
         			"Last updated: " + data.get(position).getDate());
@@ -73,5 +77,7 @@ public class CustomAdapter extends BaseAdapter {
         
         return vi;
 	}
+
+	
 
 }

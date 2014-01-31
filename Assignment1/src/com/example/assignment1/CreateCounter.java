@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/*This is where the counters are made. They don't get added until it returns to the MainActivity.
+ * Each counter has an editable name that cannot be blank and cannot exceed 20 characters.
+ */
+
 public class CreateCounter extends Activity {
 	String name;
 	EditText editName = null;
@@ -32,11 +36,13 @@ public class CreateCounter extends Activity {
 		
 		if (name.length() != 0 && name.length() <= 20){
 						
-			create.putExtra("counter name", name);
+			create.putExtra("counter name", name); //send the counter name back to the MainActivity to be added
 			setResult(RESULT_OK, create);
 		    finish();
 		}
 		
+		//handles the name restrictions. Gives the user a message if the name is blank
+		//or exceeds 20 characters
 		else{
 			Context context = getApplicationContext();
 			CharSequence text;
@@ -59,8 +65,12 @@ public class CreateCounter extends Activity {
 	}
 	
 	
-	
+	//Allows the user to quickly back out when they have the onscreen keyboard open
 	public void cancel(View v){
 		finish();
 	}
+
+
+
+	
 }

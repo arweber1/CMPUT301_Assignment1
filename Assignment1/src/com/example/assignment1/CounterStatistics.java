@@ -4,11 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+//This is where the user  can choose to view the various statistics by hour, day, week, or month
 public class CounterStatistics extends MainActivity {
 
 	
@@ -48,6 +50,9 @@ public class CounterStatistics extends MainActivity {
 		  		
 	 }
 	
+	
+	//Check if the back button was pressed. This prevents the activity from
+	//closing completely when the user backs out from viewing statistics
 	@Override
 	public void onBackPressed(){
 		if (backPressed){
@@ -59,6 +64,7 @@ public class CounterStatistics extends MainActivity {
 		}
 	}
 	
+	//view the hourly statistics
 	public void viewByHour(View V){
 		setContentView(R.layout.view_statistics);
 		backPressed = true;
@@ -79,7 +85,7 @@ public class CounterStatistics extends MainActivity {
 		stats.setText(text);
 	}
 	
-	
+	//view the daily statistics
 	public void viewByDay(View V){
 		setContentView(R.layout.view_statistics);
 		backPressed = true;
@@ -100,6 +106,7 @@ public class CounterStatistics extends MainActivity {
 		stats.setText(text);
 	}
 	
+	//view the weekly statistics
 	public void viewByWeek(View V){
 		setContentView(R.layout.view_statistics);
 		backPressed = true;
@@ -120,6 +127,8 @@ public class CounterStatistics extends MainActivity {
 		stats.setText(text);
 	}
 	
+	
+	//view the monthly statistics
 	public void viewByMonth(View V){
 		setContentView(R.layout.view_statistics);
 		backPressed = true;

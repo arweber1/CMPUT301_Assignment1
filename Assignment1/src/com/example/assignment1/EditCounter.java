@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/*This is where the user can manage their counters. They can edit
+ * the name, reset it, delete it, and view this counter's stats
+ */
 public class EditCounter extends MainActivity {
 	
 	private boolean resetCount = false;
@@ -32,7 +35,7 @@ public class EditCounter extends MainActivity {
 	        newName = extras.getString("counter name");
 	        loadClassFile(FILENAME,counterArray);
 	        editName = (EditText) findViewById(R.id.editName);
-			editName.setText(newName);
+			editName.setText(newName); //fill in the editText field with the current counter name
 	       
 	 }
 	 
@@ -85,8 +88,9 @@ public class EditCounter extends MainActivity {
 	 
 	 public void saveChanges(View v){
 		 
-		 boolean saveAndExit = true;
+		 boolean saveAndExit = true; //cannot exit if the name restrictions are violated
 		 
+		 //check if the counter was deleted. If so, then skip to the end after deleting it
 		 if (deleteCounter){
 			 counterArray.remove(counterPosition);
 			 
@@ -107,9 +111,10 @@ public class EditCounter extends MainActivity {
 				 counterArray.get(counterPosition).setCounterName(newName);
 			 }
 			 
+			 //check that the name isn't blank and doesn't exceed 20 characters
 			 else{
 				 
-				 saveAndExit = false;
+				 saveAndExit = false; //cannot exit until fixed
 				 if (newName.length() == 0){
 						text = "Name cannot be blank";
 						
@@ -136,6 +141,8 @@ public class EditCounter extends MainActivity {
 		 }
 		 
 	 }
+
+	
 	 
 	 
 }
