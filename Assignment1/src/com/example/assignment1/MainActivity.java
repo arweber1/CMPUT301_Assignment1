@@ -222,6 +222,7 @@ private void updateStats(int position) {
 	int hour;
 	
 	Calendar calendar = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
+	Calendar calendar2 = GregorianCalendar.getInstance(Locale.getDefault()); // creates a new calendar instance
 	//dateFormat.setCalendar(calendar); 
 	calendar.setTime(date);   // assigns calendar to given date 
 	hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
@@ -285,26 +286,31 @@ private void updateStats(int position) {
 	
 	
 	
-	//calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+	calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 	
-	/*statistics = counterArray.get(position).getWeekLogs();
-	date = counterArray.get(position).getDate();   // given date
+	statistics = counterArray.get(position).getWeekLogs();
+	//date = counterArray.get(position).getDate();   // given date
 	
-	
-	calendar.setTime(date);   // assigns calendar to given date 
-	int week = calendar.get(Calendar.DAY_OF_WEEK); // gets hour in 24h format
-	
+	//System.out.println(calendar.getTime());
+	  // assigns calendar to given date 
+	date = calendar.getTime(); // gets hour in 24h format
+	calendar.setTime(date); 
+	int week = calendar.get(Calendar.DAY_OF_WEEK);
+	System.out.println(week);
 	
 	size = counterArray.get(position).getWeekLogs().size();
 	if (size != 0){
 		date = counterArray.get(position).getWeekLogs().get(size - 1).date;
+		
 	}
 	
-	calendar.setTime(date);
+	
+	calendar2.setTime(date);
 	int currentWeek = calendar.get(Calendar.DAY_OF_WEEK);
+	long time = ((calendar.getTimeInMillis() - calendar2.getTimeInMillis()) / (1000 * 60 * 60));
+	//System.out.println(time);
 	
-	
-	if (statistics.size() != 0 && currentWeek == week){
+	if (statistics.size() != 0 && time < 168 ){
 		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
 	}
 	
@@ -314,7 +320,7 @@ private void updateStats(int position) {
 		counterArray.get(position).addWeekLog(stat);
 		counterArray.get(position).getWeekLogs().get(statistics.size()-1).increment();
 		
-	}*/
+	}
 	
 	
 	

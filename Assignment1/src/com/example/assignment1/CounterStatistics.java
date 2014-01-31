@@ -100,25 +100,25 @@ public class CounterStatistics extends MainActivity {
 		stats.setText(text);
 	}
 	
-	/*public void viewByWeek(View V){
+	public void viewByWeek(View V){
 		setContentView(R.layout.view_statistics);
 		backPressed = true;
 		text = "";
-		dateFormat = new SimpleDateFormat("MMM dd w", Locale.CANADA);
+		dateFormat = new SimpleDateFormat("MMM dd", Locale.CANADA);
 		
 		TextView stats = (TextView) findViewById(R.id.textView1);
 		
-		int size = counterArray.get(position).getDayLogs().size();
+		int size = counterArray.get(position).getWeekLogs().size();
 		
 		for (int i  = 0; i < size; i++){
-			date = dateFormat.format(counterArray.get(position).getDayLogs().get(i).getDate());
-			text += date + 
-					" -- " + String.valueOf(counterArray.get(position).getDayLogs().get(i).getCount()) + "\n";
+			date = dateFormat.format(counterArray.get(position).getWeekLogs().get(i).getDate());
+			text += "Week of " + date + 
+					" -- " + String.valueOf(counterArray.get(position).getWeekLogs().get(i).getCount()) + "\n";
 		}
 		
 		
 		stats.setText(text);
-	}*/
+	}
 	
 	public void viewByMonth(View V){
 		setContentView(R.layout.view_statistics);

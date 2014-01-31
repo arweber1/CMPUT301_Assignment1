@@ -12,7 +12,7 @@ public class Statistic implements Serializable{
 	Date date;
 	
 	public Statistic(Date date){
-		this.date = new Date();
+		this.date = date;
 		//this.count = count;
 		
 	}
